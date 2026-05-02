@@ -39,6 +39,18 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        bull: {
+          DEFAULT: "hsl(var(--bull))",
+          foreground: "hsl(var(--bull-foreground))",
+        },
+        bear: {
+          DEFAULT: "hsl(var(--bear))",
+          foreground: "hsl(var(--bear-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

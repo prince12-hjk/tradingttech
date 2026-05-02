@@ -14,7 +14,141 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      alerts: {
+        Row: {
+          condition: string
+          created_at: string
+          id: string
+          price: number
+          symbol: string
+          triggered: boolean
+          user_id: string
+        }
+        Insert: {
+          condition: string
+          created_at?: string
+          id?: string
+          price: number
+          symbol: string
+          triggered?: boolean
+          user_id: string
+        }
+        Update: {
+          condition?: string
+          created_at?: string
+          id?: string
+          price?: number
+          symbol?: string
+          triggered?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
+      paper_trades: {
+        Row: {
+          ai_grade: string | null
+          ai_notes: string | null
+          closed_at: string | null
+          entry_price: number
+          id: string
+          opened_at: string
+          pnl: number | null
+          side: Database["public"]["Enums"]["trade_side"]
+          size: number
+          status: Database["public"]["Enums"]["trade_status"]
+          stop_loss: number
+          symbol: string
+          target_price: number
+          user_id: string
+        }
+        Insert: {
+          ai_grade?: string | null
+          ai_notes?: string | null
+          closed_at?: string | null
+          entry_price: number
+          id?: string
+          opened_at?: string
+          pnl?: number | null
+          side: Database["public"]["Enums"]["trade_side"]
+          size: number
+          status?: Database["public"]["Enums"]["trade_status"]
+          stop_loss: number
+          symbol: string
+          target_price: number
+          user_id: string
+        }
+        Update: {
+          ai_grade?: string | null
+          ai_notes?: string | null
+          closed_at?: string | null
+          entry_price?: number
+          id?: string
+          opened_at?: string
+          pnl?: number | null
+          side?: Database["public"]["Enums"]["trade_side"]
+          size?: number
+          status?: Database["public"]["Enums"]["trade_status"]
+          stop_loss?: number
+          symbol?: string
+          target_price?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          experience: Database["public"]["Enums"]["experience_level"]
+          id: string
+          onboarded: boolean
+          paper_balance: number
+          style: Database["public"]["Enums"]["trading_style"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          experience?: Database["public"]["Enums"]["experience_level"]
+          id: string
+          onboarded?: boolean
+          paper_balance?: number
+          style?: Database["public"]["Enums"]["trading_style"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          experience?: Database["public"]["Enums"]["experience_level"]
+          id?: string
+          onboarded?: boolean
+          paper_balance?: number
+          style?: Database["public"]["Enums"]["trading_style"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      watchlist: {
+        Row: {
+          created_at: string
+          id: string
+          symbol: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          symbol: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          symbol?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +157,10 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      experience_level: "beginner" | "intermediate" | "advanced"
+      trade_side: "long" | "short"
+      trade_status: "open" | "closed_win" | "closed_loss" | "cancelled"
+      trading_style: "scalp" | "intraday" | "swing"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +287,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      experience_level: ["beginner", "intermediate", "advanced"],
+      trade_side: ["long", "short"],
+      trade_status: ["open", "closed_win", "closed_loss", "cancelled"],
+      trading_style: ["scalp", "intraday", "swing"],
+    },
   },
 } as const
