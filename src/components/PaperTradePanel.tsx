@@ -13,6 +13,7 @@ import { ArrowDown, ArrowUp, Wallet, X, TrendingUp, TrendingDown } from "lucide-
 import { cn } from "@/lib/utils";
 import type { Setup } from "./AIAnalysisPanel";
 
+type TradeStatus = "open" | "closed_win" | "closed_loss" | "cancelled";
 interface Trade {
   id: string;
   symbol: string;
@@ -21,7 +22,7 @@ interface Trade {
   stop_loss: number;
   target_price: number;
   size: number;
-  status: "open" | "closed";
+  status: TradeStatus;
   pnl: number | null;
   ai_grade: string | null;
   ai_notes: string | null;
@@ -129,8 +130,9 @@ export function PaperTradePanel({ symbol, pendingSetup, onConsumeSetup }: Props)
     const direction = t.side === "long" ? 1 : -1;
     const pnlPct = ((exitPrice - t.entry_price) / t.entry_price) * direction;
     const pnl = pnlPct * t.size;
+    const newStatus: TradeStatus = pnl >= 0 ? "closed_win" : "closed_loss";
     await supabase.from("paper_trades").update({
-      status: "closed",
+      status: newStatus,
       pnl,
       closed_at: new Date().toISOString(),
       ai_notes: `Closed via ${reason} @ ${exitPrice}`,
@@ -148,7 +150,7 @@ export function PaperTradePanel({ symbol, pendingSetup, onConsumeSetup }: Props)
   };
 
   const openTrades = trades.filter(t => t.status === "open");
-  const closedTrades = trades.filter(t => t.status === "closed");
+  const closedTrades = trades.filter(t => t.status === "closed_win" || t.status === "closed_loss");
   const totalPnl = closedTrades.reduce((a, t) => a + (t.pnl ?? 0), 0);
   const wins = closedTrades.filter(t => (t.pnl ?? 0) > 0).length;
   const winRate = closedTrades.length ? Math.round((wins / closedTrades.length) * 100) : 0;
