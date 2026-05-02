@@ -39,6 +39,18 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        bull: {
+          DEFAULT: "hsl(var(--bull))",
+          foreground: "hsl(var(--bull-foreground))",
+        },
+        bear: {
+          DEFAULT: "hsl(var(--bear))",
+          foreground: "hsl(var(--bear-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
@@ -80,6 +92,11 @@ export default {
             height: "0",
           },
         },
+      },
+      fontFamily: {
+        display: ["'Space Grotesk'", "system-ui", "sans-serif"],
+        sans: ["'Inter'", "system-ui", "sans-serif"],
+        mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
